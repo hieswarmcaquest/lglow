@@ -239,6 +239,16 @@ run_cli: install_frontend install_backend build_frontend ## run the CLI
 		$(if $(env),--env-file $(env),) \
 		$(if $(filter false,$(open_browser)),--no-open-browser)
 
+run_lflow: ## run the CLI
+	@echo 'Running the CLI'
+	@uv run langflow run \
+		--frontend-path $(path) \
+		--log-level $(log_level) \
+		--host $(host) \
+		--port $(port) \
+		$(if $(env),--env-file $(env),) \
+		$(if $(filter false,$(open_browser)),--no-open-browser)
+
 run_cli_debug:
 	@echo 'Running the CLI in debug mode'
 	@make install_frontend > /dev/null

@@ -79,13 +79,21 @@ def _do_run_migrations(connection):
             connection.execute(text("SELECT pg_advisory_xact_lock(112233);"))
         context.run_migrations()
 
-
+'''
 async def _run_async_migrations() -> None:
     connectable = async_engine_from_config(
         config.get_section(config.config_ini_section, {}),
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
+'''
+from sqlalchemy.ext.asyncio import create_async_engine
+
+async def _run_async_migrations() -> None:
+    # Manually override the connection to force `aiosqlite`
+    connectable = create_async_engine("sqlite+aiosqlite:///./langflow.db", poolclass=pool.NullPool)
+
+
 
     if connectable.dialect.name == "sqlite":
         # See https://docs.sqlalchemy.org/en/20/dialects/sqlite.html#serializable-isolation-savepoints-transactional-ddl
