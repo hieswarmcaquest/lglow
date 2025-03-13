@@ -62,12 +62,20 @@ export default function LoginPage(): JSX.Element {
       className="h-screen w-full flex flex-col bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white relative overflow-hidden"
     >
       {/* Navigation Bar */}
+
       <div className="w-full flex justify-between items-center px-6 py-3 border-b border-gray-600">
-        <div className="flex items-center">
-          <img src={lGlowLogo} alt="lGlow Logo" className="h-12 w-12 rounded-full" />
-          <span className="ml-3 text-xl font-bold text-gray-200">lGlow</span>
-        </div>
-      </div>
+  <div className="flex items-center">
+    <img src={lGlowLogo} alt="lGlow Logo" className="h-12 w-12 rounded-full" />
+    <span className="ml-3 text-xl font-bold text-gray-200">lGlow</span>
+  </div>
+  {/* Menu Items */}
+  <div className="flex space-x-6 text-gray-300 text-lg">
+    <CustomLink to="/usecases">Use Cases</CustomLink>
+    <CustomLink to="/resources">Resources</CustomLink>
+    <CustomLink to="/about">About Us</CustomLink>
+  </div>
+</div>
+
 
       {/* Title Text and GIF */}
       <div className="flex items-center justify-between px-12 mt-16">
@@ -80,10 +88,54 @@ export default function LoginPage(): JSX.Element {
           <p className="text-gray-400 mt-3 text-3xl italic shadow-text">Code-free innovation</p>
         </div>
         {/* GIF Section with Blended Background */}
-	<div className="w-[100px] h-[100px] flex items-center justify-center bg-gray-900 p-4 rounded-lg shadow-lg">
-    	<img src={AIBlockAnim} alt="AI Animation" className="w-full h-full object-contain mix-blend-screen" />
 	</div>
-      </div>
+{/* GIF Section with Blended Background */}
+{/*
+<div className="w-[20vw] h-[20vh] flex items-center justify-center rounded-lg shadow-lg overflow-hidden border border-gray-700">
+   <img src={AIBlockAnim} alt="AI Animation" className="w-full h-full object-cover" />
+</div>
+*/}
+{/* GIF Section with Blended Background */}
+
+        {/* GIF Section with Blended Background 
+        <div className="w-[50vw] h-[50vh] flex items-center justify-center rounded-lg shadow-lg overflow-hidden absolute right-[102px] top-[calc(50%-90px)] transform -translate-y-1/2">
+          <img src={AIBlockAnim} alt="AI Animation" className="w-auto h-auto max-w-full max-h-full rounded-lg" />
+        </div>
+*/}
+        {/* GIF Section with Blended Background 
+	<div className="w-[50vw] h-[50vh] flex items-center justify-center rounded-lg shadow-lg overflow-hidden absolute right-[0px] top-[calc(50%-90px)] transform -translate-y-1/2">
+    <img src={AIBlockAnim} alt="AI Animation" className="w-auto h-auto max-w-full max-h-full rounded-lg" />
+</div>
+<div className="w-[50vw] h-[50vh] flex items-center justify-end rounded-lg shadow-lg overflow-hidden absolute right-10px top-1/2 transform -translate-y-1/2">
+    <img src={AIBlockAnim} alt="AI Animation" className="w-auto h-auto max-w-full max-h-full rounded-lg" />
+</div>
+
+<div className="w-[50vw] h-[50vh] flex items-center justify-end rounded-lg shadow-lg overflow-hidden absolute right-[10px] top-[calc(50%-15px)] transform -translate-y-1/2">
+    <img src={AIBlockAnim} alt="AI Animation" className="w-auto h-auto max-w-full max-h-full rounded-lg" />
+</div>
+*/}
+
+<div className="w-[50vw] h-[50vh] flex items-center justify-end rounded-lg shadow-lg overflow-hidden absolute right-[20px] top-[calc(50%-75px)] transform -translate-y-1/2">
+    <img src={AIBlockAnim} alt="AI Animation" className="w-auto h-auto max-w-full max-h-full rounded-lg" />
+</div>
+
+
+	{/* Trusted By Section */}
+
+	 <div className="absolute bottom-10 w-full flex justify-center items-center text-gray-300 text-lg space-x-6">
+          <span>Trusted by:</span>
+          <span className="font-bold text-xl text-white">Sora</span>
+          <span className="font-bold text-xl text-white">Webflow</span>
+          <span className="font-bold text-xl text-white">Plantuml</span>
+        </div>	
+{/*
+        <div className="absolute bottom-10 w-full flex justify-center items-center text-gray-300 text-lg space-x-6">
+          <span>Trusted by:</span>
+          <img src="/assets/sora-logo.png" alt="Sora" className="h-6" />
+          <img src="/assets/webflow-logo.png" alt="Webflow" className="h-6" />
+          <img src="/assets/plantum-logo.png" alt="Plantum" className="h-6" />
+        </div>
+*/}
 
       {/* Login Section */}
       <div className="flex flex-grow items-center justify-center">
