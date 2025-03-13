@@ -36,7 +36,7 @@ export default function LoginPage(): JSX.Element {
   }
 
   useEffect(() => {
-    document.title = "lGlow";
+    document.title = "iNference.ai";
     const favicon = document.querySelector("link[rel='icon']");
     if (favicon) {
       favicon.setAttribute("href", lGlowLogo);
@@ -61,12 +61,30 @@ export default function LoginPage(): JSX.Element {
       }}
       className="h-screen w-full flex flex-col bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white relative overflow-hidden"
     >
+
+            {/* Starry Flowery Effect */}
+        <div className="absolute inset-0 pointer-events-none">
+            {[...Array(30)].map((_, i) => (
+                <div
+                    key={i}
+                    className="absolute bg-white rounded-full opacity-0 starry-effect"
+                    style={{
+                        width: `${Math.random() * 6 + 3}px`,
+                        height: `${Math.random() * 6 + 3}px`,
+                        top: `${Math.random() * 100}%`,
+                        left: `${Math.random() * 100}%`,
+                        animationDelay: `${Math.random() * 5}s`
+                    }}
+                ></div>
+            ))}
+        </div>
+
       {/* Navigation Bar */}
 
       <div className="w-full flex justify-between items-center px-6 py-3 border-b border-gray-600">
   <div className="flex items-center">
     <img src={lGlowLogo} alt="lGlow Logo" className="h-12 w-12 rounded-full" />
-    <span className="ml-3 text-xl font-bold text-gray-200">lGlow</span>
+    <span className="ml-3 text-xl font-bold text-gray-200">iNference.ai</span>
   </div>
   {/* Menu Items */}
   <div className="flex space-x-6 text-gray-300 text-lg">
@@ -113,10 +131,18 @@ export default function LoginPage(): JSX.Element {
 <div className="w-[50vw] h-[50vh] flex items-center justify-end rounded-lg shadow-lg overflow-hidden absolute right-[10px] top-[calc(50%-15px)] transform -translate-y-1/2">
     <img src={AIBlockAnim} alt="AI Animation" className="w-auto h-auto max-w-full max-h-full rounded-lg" />
 </div>
-*/}
 
 <div className="w-[50vw] h-[50vh] flex items-center justify-end rounded-lg shadow-lg overflow-hidden absolute right-[20px] top-[calc(50%-75px)] transform -translate-y-1/2">
     <img src={AIBlockAnim} alt="AI Animation" className="w-auto h-auto max-w-full max-h-full rounded-lg" />
+</div>
+*/}
+
+<div className="w-[50vw] h-[50vh] flex items-center justify-end rounded-lg shadow-lg overflow-hidden absolute right-[20px] top-[calc(50%-75px)] transform -translate-y-1/2">
+     <img 
+        src={AIBlockAnim} 
+        alt="AI Animation" 
+        className="w-auto h-auto max-w-full max-h-full rounded-lg filter brightness-75 contrast-125 mix-blend-screen" 
+    />
 </div>
 
 
@@ -174,6 +200,36 @@ export default function LoginPage(): JSX.Element {
           </div>
         </div>
       </div>
+      <style jsx>{`
+            @keyframes star-fade {
+                0% { opacity: 0; transform: scale(0.8) rotate(0deg); }
+                50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+                100% { opacity: 0; transform: scale(0.8) rotate(360deg); }
+            }
+            .starry-effect {
+                position: absolute;
+                animation: star-fade 3s infinite ease-in-out alternate;
+            }
+            @keyframes fade-in {
+                0% { opacity: 0; transform: translateY(-20px); }
+                100% { opacity: 1; transform: translateY(0); }
+            }
+            .animate-fade-in {
+                animation: fade-in 1.5s ease-out forwards;
+            }
+            .shadow-glow {
+                box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            }
+            .border-glow {
+                border-width: 2px;
+                border-image-source: linear-gradient(to right, #444, #888, #444);
+                border-image-slice: 1;
+            }
+            .shadow-text {
+                text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.7);
+            }
+        `}</style>
+
     </Form.Root>
   );
 }

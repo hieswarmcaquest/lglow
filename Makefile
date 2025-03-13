@@ -89,8 +89,17 @@ init: check_tools clean_python_cache clean_npm_cache ## initialize the project
 	@make install_frontend
 	@make build_frontend
 	@echo "$(GREEN)All requirements are installed.$(NC)"
+ifdef env
+	@uv run langflow run \
+		--frontend-path $(path) \
+		--log-level $(log_level) \
+		--host $(host) \
+		--port $(port) \
+		$(if $(env),--env-file $(env),) \
+		$(if $(filter false,$(open_browser)),--no-open-browser)
+else	
 	@uv run langflow run
-
+endif
 ######################
 # CLEAN PROJECT
 ######################
