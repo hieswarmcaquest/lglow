@@ -80,14 +80,14 @@ export default function LoginPage(): JSX.Element {
           <p className="text-gray-400 mt-3 text-3xl italic shadow-text">Code-free innovation</p>
         </div>
         {/* GIF Section with Blended Background */}
-        <div className="w-80 h-80 flex items-center justify-center bg-gray-900 p-4 rounded-lg shadow-lg">
-          <img src={AIBlockAnim} alt="AI Animation" className="w-full h-full object-contain mix-blend-screen" />
-        </div>
+	<div className="w-[180px] h-[180px] flex items-center justify-center bg-gray-900 p-4 rounded-lg shadow-lg">
+    	<img src={AIBlockAnim} alt="AI Animation" className="w-full h-full object-contain mix-blend-screen" />
+	</div>
       </div>
 
       {/* Login Section */}
       <div className="flex flex-grow items-center justify-center">
-        <div className="flex flex-col items-center gap-5 bg-gray-800 p-10 rounded-lg shadow-lg">
+      	<div className="flex flex-col items-center gap-5 bg-gray-800 p-10 rounded-lg shadow-lg absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <Form.Field name="username">
             <Input type="text" placeholder="Username" className="h-12 w-72 px-4 py-3 border rounded bg-gray-900 text-white placeholder-gray-400 shadow-glow" value={username} onChange={(e) => handleInput(e)} />
           </Form.Field>
