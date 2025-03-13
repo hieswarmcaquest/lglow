@@ -1,9 +1,9 @@
 import lGlowLogo from "@/assets/lGlowLogo.jpg";
+import AIBlockAnim from "@/assets/AIBlockAnim.gif";
 import { useLoginUser } from "@/controllers/API/queries/auth";
 import { CustomLink } from "@/customization/components/custom-link";
-import { ENABLE_NEW_LOGO } from "@/customization/feature-flags";
 import * as Form from "@radix-ui/react-form";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import InputComponent from "../../components/core/parameterRenderComponent/components/inputComponent";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
@@ -12,45 +12,42 @@ import { CONTROL_LOGIN_STATE } from "../../constants/constants";
 import { AuthContext } from "../../contexts/authContext";
 import useAlertStore from "../../stores/alertStore";
 import { LoginType } from "../../types/api";
-import {
-  inputHandlerEventType,
-  loginInputStateType,
-} from "../../types/components";
+import { inputHandlerEventType, loginInputStateType } from "../../types/components";
 
 export default function LoginPage(): JSX.Element {
-  const [inputState, setInputState] =
-    useState<loginInputStateType>(CONTROL_LOGIN_STATE);
-
+  const [inputState, setInputState] = useState<loginInputStateType>(CONTROL_LOGIN_STATE);
   const { password, username } = inputState;
   const { login } = useContext(AuthContext);
   const setErrorData = useAlertStore((state) => state.setErrorData);
 
-  function handleInput({
-    target: { name, value },
-  }: inputHandlerEventType): void {
+  function handleInput({ target: { name, value } }: inputHandlerEventType): void {
     setInputState((prev) => ({ ...prev, [name]: value }));
   }
 
   const { mutate } = useLoginUser();
 
   function signIn() {
-    const user: LoginType = {
-      username: username.trim(),
-      password: password.trim(),
-    };
-
+    const user: LoginType = { username: username.trim(), password: password.trim() };
     mutate(user, {
-      onSuccess: (data) => {
-        login(data.access_token, "login", data.refresh_token);
-      },
-      onError: (error) => {
-        setErrorData({
-          title: SIGNIN_ERROR_ALERT,
-          list: [error["response"]["data"]["detail"]],
-        });
-      },
+      onSuccess: (data) => login(data.access_token, "login", data.refresh_token),
+      onError: (error) =>
+        setErrorData({ title: SIGNIN_ERROR_ALERT, list: [error["response"]["data"]["detail"]] }),
     });
   }
+
+  useEffect(() => {
+    document.title = "lGlow";
+    const favicon = document.querySelector("link[rel='icon']");
+    if (favicon) {
+      favicon.setAttribute("href", lGlowLogo);
+    } else {
+      const newFavicon = document.createElement("link");
+      newFavicon.rel = "icon";
+      newFavicon.type = "image/jpg";
+      newFavicon.href = lGlowLogo;
+      document.head.appendChild(newFavicon);
+    }
+  }, []);
 
   return (
     <Form.Root
@@ -60,84 +57,49 @@ export default function LoginPage(): JSX.Element {
           return;
         }
         signIn();
-        const data = Object.fromEntries(new FormData(event.currentTarget));
         event.preventDefault();
       }}
-      className="h-screen w-full"
+      className="h-screen w-full flex flex-col bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white relative overflow-hidden"
     >
-      <div className="flex h-full w-full flex-col items-center justify-center bg-muted">
-        <div className="flex w-72 flex-col items-center justify-center gap-2">
-          {ENABLE_NEW_LOGO ? (
-            <img
-              src={lGlowLogo}
-              alt="lGlow Logo"
-              className="mb-4 h-10 w-10 scale-[1.5] rounded-full"
-            />
-          ) : (
-            <span className="mb-4 text-5xl">⛓️</span>
-          )}
-          <span className="mb-6 text-2xl font-semibold text-primary">
-            Sign in to LangGlow
-          </span>
-          <div className="mb-3 w-full">
-            <Form.Field name="username">
-              <Form.Label className="data-[invalid]:label-invalid">
-                Username <span className="font-medium text-destructive">*</span>
-              </Form.Label>
+      {/* Navigation Bar */}
+      <div className="w-full flex justify-between items-center px-6 py-3 border-b border-gray-600">
+        <div className="flex items-center">
+          <img src={lGlowLogo} alt="lGlow Logo" className="h-12 w-12 rounded-full" />
+          <span className="ml-3 text-xl font-bold text-gray-200">lGlow</span>
+        </div>
+      </div>
 
-              <Form.Control asChild>
-                <Input
-                  type="text"
-                  onChange={({ target: { value } }) => {
-                    handleInput({ target: { name: "username", value } });
-                  }}
-                  value={username}
-                  className="w-full"
-                  required
-                  placeholder="Username"
-                />
-              </Form.Control>
+      {/* Title Text and GIF */}
+      <div className="flex items-center justify-between px-12 mt-16">
+        <div className="max-w-xl text-white animate-fade-in">
+          <h2 className="text-6xl font-extrabold leading-tight bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent shadow-text">
+            Transform any workflow with
+            <br />
+            <span className="text-pink-500 drop-shadow-lg">intelligent AI automation.</span>
+          </h2>
+          <p className="text-gray-400 mt-3 text-3xl italic shadow-text">Code-free innovation</p>
+        </div>
+        {/* GIF Section with Blended Background */}
+        <div className="w-80 h-80 flex items-center justify-center bg-gray-900 p-4 rounded-lg shadow-lg">
+          <img src={AIBlockAnim} alt="AI Animation" className="w-full h-full object-contain mix-blend-screen" />
+        </div>
+      </div>
 
-              <Form.Message match="valueMissing" className="field-invalid">
-                Please enter your username
-              </Form.Message>
-            </Form.Field>
-          </div>
-          <div className="mb-3 w-full">
-            <Form.Field name="password">
-              <Form.Label className="data-[invalid]:label-invalid">
-                Password <span className="font-medium text-destructive">*</span>
-              </Form.Label>
-
-              <InputComponent
-                onChange={(value) => {
-                  handleInput({ target: { name: "password", value } });
-                }}
-                value={password}
-                isForm
-                password={true}
-                required
-                placeholder="Password"
-                className="w-full"
-              />
-
-              <Form.Message className="field-invalid" match="valueMissing">
-                Please enter your password
-              </Form.Message>
-            </Form.Field>
-          </div>
-          <div className="w-full">
+      {/* Login Section */}
+      <div className="flex flex-grow items-center justify-center">
+        <div className="flex flex-col items-center gap-5 bg-gray-800 p-10 rounded-lg shadow-lg">
+          <Form.Field name="username">
+            <Input type="text" placeholder="Username" className="h-12 w-72 px-4 py-3 border rounded bg-gray-900 text-white placeholder-gray-400 shadow-glow" value={username} onChange={(e) => handleInput(e)} />
+          </Form.Field>
+          <Form.Field name="password">
+            <InputComponent placeholder="Password" className="h-12 w-72 px-4 py-3 border rounded bg-gray-900 text-white placeholder-gray-400 shadow-glow" isForm password={true} value={password} onChange={(value) => handleInput({ target: { name: "password", value } })} />
+          </Form.Field>
+          <div className="flex space-x-3 mt-4">
             <Form.Submit asChild>
-              <Button className="mr-3 mt-6 w-full" type="submit">
-                Sign in
-              </Button>
+              <Button className="btn-style">Login</Button>
             </Form.Submit>
-          </div>
-          <div className="w-full">
             <CustomLink to="/signup">
-              <Button className="w-full" variant="outline" type="button">
-                Don't have an account?&nbsp;<b>Sign Up</b>
-              </Button>
+              <Button className="btn-style">Sign Up</Button>
             </CustomLink>
           </div>
         </div>
