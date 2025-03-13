@@ -140,13 +140,31 @@ export default function LoginPage(): JSX.Element {
       {/* Login Section */}
       <div className="flex flex-grow items-center justify-center">
       	<div className="flex flex-col items-center gap-5 bg-gray-800 p-10 rounded-lg shadow-lg absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+	{/*
           <Form.Field name="username">
             <Input type="text" placeholder="Username" className="h-12 w-72 px-4 py-3 border rounded bg-gray-900 text-white placeholder-gray-400 shadow-glow" value={username} onChange={(e) => handleInput(e)} />
           </Form.Field>
+*/}
+<Form.Field name="username">
+  <Input 
+    type="text" 
+    name="username"
+    placeholder="Username" 
+    className="h-12 w-72 px-4 py-3 border rounded bg-gray-900 text-white placeholder-gray-400 shadow-glow" 
+    value={username} 
+    onChange={(e) => handleInput(e)} 
+  />
+</Form.Field>
+
+
           <Form.Field name="password">
             <InputComponent placeholder="Password" className="h-12 w-72 px-4 py-3 border rounded bg-gray-900 text-white placeholder-gray-400 shadow-glow" isForm password={true} value={password} onChange={(value) => handleInput({ target: { name: "password", value } })} />
           </Form.Field>
-          <div className="flex space-x-3 mt-4">
+        
+	
+
+
+	  <div className="flex space-x-3 mt-4">
             <Form.Submit asChild>
               <Button className="btn-style">Login</Button>
             </Form.Submit>
